@@ -2,9 +2,11 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="content.js"></script>
     <link media="all" type="text/css" href="sushime.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+    <script src="http://www.google.com/jsapi?key=ABQIAAAA9zo6gDv1qbSijhp-laO8LhRtaEV2mWm6DEXnHoUWVBgk6yYnABTg47uTTr3vdw6iH57JplZ7uAlbDg" type="text/javascript"></script>
+    <script type="text/javascript" src="content.js"></script>
     <title>sushi me</title>
   </head>
   <body>
@@ -17,7 +19,7 @@
           <h2>ユーザーをみつける</h2>
           <div id="user-find">
             <form>
-              <input type="text"  name="username" value="hitode909"></input>
+              <input type="text"  name="username" value="tsuda" placeholder="twitterのユーザーを入力"></input>
               <input type="submit" value="みつける"></input>
             </form>
           </div>
@@ -33,12 +35,12 @@
 
         <div id="right">
           <h2>トッピングを検索</h2>
-          <form id="image-search">
-            <div id="search-form">
-              <input type="text"   name="keyword" value="寿司"></input>
+          <div id="image-search">
+            <form>
+              <input type="text"   name="keyword" value="寿司" placeholder="キーワードを入力" ></input>
               <input type="submit" value="検索"></input>
-            </div>
-          </form>
+            </form>
+          </div>
           <div id="search-result">
             <span class="image-item">
               <img src="http://www.webkic.co.jp/yoshimaru/img/05_lunch/F19_にぎり寿司6貫.jpg">

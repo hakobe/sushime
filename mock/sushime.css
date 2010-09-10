@@ -91,13 +91,17 @@ body {
     padding-bottom: 10px;
 }
 
-#search-form input {
+#image-search input {
     font-size: 110%;
 }
 
+.image-item {
+    margin: 4px;
+}
+
 .image-item img {
-    max-width: 96px;
-    max-height: 96px;
+    max-width: 70px;
+    max-height: 70px;
     cursor: pointer;
 }
 
