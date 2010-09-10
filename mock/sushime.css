@@ -95,8 +95,13 @@ body {
     font-size: 110%;
 }
 
-.image-item {
-    margin: 4px;
+.image-item img{
+    margin: 6px;
+}
+
+.image-item.selected img{
+    border: 4px solid red;
+    margin: 2px;
 }
 
 .image-item img {

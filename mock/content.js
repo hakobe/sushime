@@ -65,5 +65,15 @@ $(function() {
 
     $("body").trigger("user-changed", "tsuda");
 
+    // image select
+    $("body").bind("topping-url-changed", function(event, url) {
+    });
+
+    $("#search-result a").live("click", function() {
+        $("body").trigger("topping-url-changed", $(this).attr("data-original-url"));
+        $("#search-result a.selected").removeClass("selected");
+        $(this).addClass("selected");
+        return false;
+    });
 
 });
