@@ -79,11 +79,12 @@ $(function() {
     };
 
     $("body").bind("post-collage", function(event) {
+        window.open($("#collage-canvas")[0].toDataURL("image/jpeg"));
         $.post(
             "http://hitode909.appspot.com/png/",
             { data: $("#collage-canvas")[0].toDataURL()},
             function(tiny) {
-                console.log(tiny);
+                window.open(tiny);
             }
         );
     });
@@ -195,8 +196,9 @@ $(function() {
         topping_position.top -= diff / 2;
         $("body").trigger("collage-image");
     });
-    $("#button-save").click(function() {
+    $("#save form").submit(function() {
         $("body").trigger("collage-image", true);
+        return false;
     });
 
 });
