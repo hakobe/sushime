@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link media="all" type="text/css" href="sushime.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+    <script src="http://www.google.com/jsapi?key=ABQIAAAA9zo6gDv1qbSijhp-laO8LhRtaEV2mWm6DEXnHoUWVBgk6yYnABTg47uTTr3vdw6iH57JplZ7uAlbDg" type="text/javascript"></script>
+    <script type="text/javascript" src="content.js"></script>
+    <title>sushi me</title>
+  </head>
+  <body>
+    <div class="wrapper" id="header">
+      <h1 id="service-logo">sushi me</h1>
+    </div>
+    <div class="wrapper" id="main">
+      <div id="editor">
+        <div id="left">
+          <h2>ユーザーをみつける</h2>
+          <div id="user-find">
+            <form>
+              <input type="text"  name="username" value="tsuda" placeholder="twitterのユーザーを入力"></input>
+              <input type="submit" value="みつける"></input>
+            </form>
+          </div>
+          <div id="collage-container">
+            <img id="user-image" src="dummy.jpg" width="350px" height="350px">
+            <img id="topping-image" src="dummy.jpg" class="none" data-loaded="no">
+          </div>
+          <div id="button-controller">
+            <button id="button-up">上</button>
+            <button id="button-down">下</button>
+            <button id="button-right">右</button>
+            <button id="button-left">左</button>
+            <button id="button-large">大</button>
+            <button id="button-small">小</button>
+          </div>
+          <div id="submit">
+            <form>
+              <input type="submit" value="注文を決定"></input>
+            </form>
+          </div>
+        </div>
+
+        <div id="right">
+          <h2>トッピングを検索</h2>
+          <div id="image-search">
+            <form>
+              <input type="text"   name="keyword" value="" placeholder="キーワードを入力" ></input>
+              <input type="submit" value="検索"></input>
+            </form>
+          </div>
+          <div id="search-result">
+          </div>
+        </div>
+      </div>
+      <div id="history">
+        <h2>最近の注文</h2>
+        <div id="history">
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+          <span class="history-entry">
+            <a href="http://twitter.com/hitode909">
+              <img src="http://a0.twimg.com/profile_images/1112282144/__________2010-08-28_12.22.28_PM_.png">
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
