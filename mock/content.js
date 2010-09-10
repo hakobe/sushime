@@ -78,6 +78,16 @@ $(function() {
         });
     };
 
+    $("body").bind("post-collage", function(event) {
+        $.post(
+            "http://hitode909.appspot.com/png/",
+            { data: $("#collage-canvas")[0].toDataURL()},
+            function(tiny) {
+                console.log(tiny);
+            }
+        );
+    });
+
     // XXX: chaos...
     $("body").bind("collage-image", function(event, updateCanvas) {
         $("#topping-image").css(topping_position);
@@ -112,6 +122,7 @@ $(function() {
                     topping_image_img.addEventListener("load", function() {
                         var width = topping_position.height * topping_image_img.width / topping_image_img.height;
                         ctx.drawImage(topping_image_img, topping_position.left, topping_position.top, width, topping_position.height);
+                        $("body").trigger("post-collage");
                     }, false);
                 });
             }, false);
@@ -183,6 +194,9 @@ $(function() {
         topping_position.left -= diff / 2;
         topping_position.top -= diff / 2;
         $("body").trigger("collage-image");
+    });
+    $("#button-save").click(function() {
+        $("body").trigger("collage-image", true);
     });
 
 });
