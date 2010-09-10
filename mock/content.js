@@ -89,4 +89,45 @@ $(function() {
         return false;
     });
 
+    // controller event
+    $("body").bind("topping-position", function(event, data) {
+        $("#topping-image").css(data);
+    });
+
+    // controller(temp)
+    var left = 110;
+    var top = 20;
+    var height = 130;
+    var diff = 10;
+
+    $("#button-up").click(function() {
+        top -= diff;
+        $("body").trigger("topping-position", { top: top, left: left, height: height });
+    });
+    $("#button-down").click(function() {
+        top += diff;
+        $("body").trigger("topping-position", { top: top, left: left, height: height });
+    });
+    $("#button-left").click(function() {
+        left -= diff;
+        $("body").trigger("topping-position", { top: top, left: left, height: height });
+    });
+    $("#button-right").click(function() {
+        left += diff;
+        $("body").trigger("topping-position", { top: top, left: left, height: height });
+    });
+    $("#button-small").click(function() {
+        height -= diff;
+        left += diff / 2;
+        top += diff / 2;
+        $("body").trigger("topping-position", { top: top, left: left, height: height });
+    });
+    $("#button-large").click(function() {
+        height += diff;
+        left -= diff / 2;
+        top -= diff / 2;
+        $("body").trigger("topping-position", { top: top, left: left, height: height });
+    });
+
+
 });
