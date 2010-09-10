@@ -74,6 +74,14 @@ body {
     overflow: hidden;
 }
 
+#collage-canvas {
+    width: 350px;
+    height: 350px;
+    positoin: relative;
+    overflow: hidden;
+    visibility: none;
+}
+
 #user-image {
     width: 350px;
     height: 350px;

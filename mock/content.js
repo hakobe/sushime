@@ -38,9 +38,9 @@ google.setOnLoadCallback(function() {
                 var img = $("<img>").attr({src: result.tbUrl, title: result.titleNoFormatting});
                 a.append(img);
                 $("#search-result").append(a);
-                if ($("#topping-image").attr("data-loaded") === "no") {
+                if ($("#collage-container").attr("data-topping-loaded") === "no") {
                     a.click();
-                    $("#topping-image").attr({ "data-loaded": "yes" });
+                    $("#collage-container").attr({ "data-topping-loaded": "yes" });
                 }
             });
         });
@@ -54,12 +54,76 @@ google.setOnLoadCallback(function() {
 });
 
 
+
 $(function() {
+    var imageCache = { };
+    var user_image_url;
+    var topping_image_url;
+    var topping_position = { left:110, top: 20, height: 130 };
+
+    var getDataUrlFromUrl = function(url, callback) {
+        if (imageCache[url]) {
+            callback(imageCache[url]);
+            return;
+        }
+
+        $.ajax({
+            url:"http://to-data-uri.appspot.com/",
+            dataType: "jsonp",
+            data:{url: url},
+            success:function(data) {
+                imageCache[url] = data;
+                callback(data);
+            }
+        });
+    };
+
+    // XXX: chaos...
+    $("body").bind("collage-image", function(event, updateCanvas) {
+        $("#topping-image").css(topping_position);
+
+        if (user_image_url != $("#user-image").attr("src")) {
+            $("#user-image").attr({
+                src: user_image_url
+            });
+        }
+        if (topping_image_url != $("#topping-image").attr("src")) {
+            $("#topping-image").attr({
+                src: topping_image_url
+            });
+        }
+
+        // canvas?
+        if (!updateCanvas) return;
+        var canvas = $("#collage-canvas");
+        var ctx = canvas[0].getContext("2d");
+
+        getDataUrlFromUrl(user_image_url, function(user_image_data) {
+            var user_image_img = new Image();
+            user_image_img.src = user_image_data.result;
+            user_image_img.addEventListener("load", function() {
+                ctx.drawImage(user_image_img, 0, 0, canvas.attr("width"), canvas.attr("height"));
+
+                if (!topping_image_url) return;
+                getDataUrlFromUrl(topping_image_url, function(topping_image_data) {
+                    var topping_image_img = new Image();
+                    topping_image_img.src = topping_image_data.result;
+
+                    topping_image_img.addEventListener("load", function() {
+                        var width = topping_position.height * topping_image_img.width / topping_image_img.height;
+                        ctx.drawImage(topping_image_img, topping_position.left, topping_position.top, width, topping_position.height);
+                    }, false);
+                });
+            }, false);
+
+        });
+
+    });
+
     // user icon
     $("body").bind("user-changed", function(event, username) {
-        $("#user-image").attr({
-            src: "http://api.dan.co.jp/twicon/" + username + "/bigger"
-        });
+        user_image_url = "http://api.dan.co.jp/twicon/" + username + "/bigger";
+        $("body").trigger("collage-image");
         $("#user-find form input[name='username']").val(username);
     });
 
@@ -77,9 +141,9 @@ $(function() {
 
     // image select
     $("body").bind("topping-url-changed", function(event, url) {
-        $("#topping-image").attr({
-            src: url
-        });
+        topping_image_url = url;
+        $("body").trigger("collage-image");
+
     });
 
     $("#search-result a").live("click", function() {
@@ -89,45 +153,36 @@ $(function() {
         return false;
     });
 
-    // controller event
-    $("body").bind("topping-position", function(event, data) {
-        $("#topping-image").css(data);
-    });
-
     // controller(temp)
-    var left = 110;
-    var top = 20;
-    var height = 130;
     var diff = 10;
 
     $("#button-up").click(function() {
-        top -= diff;
-        $("body").trigger("topping-position", { top: top, left: left, height: height });
+        topping_position.top -= diff;
+        $("body").trigger("collage-image");
     });
     $("#button-down").click(function() {
-        top += diff;
-        $("body").trigger("topping-position", { top: top, left: left, height: height });
+        topping_position.top += diff;
+        $("body").trigger("collage-image");
     });
     $("#button-left").click(function() {
-        left -= diff;
-        $("body").trigger("topping-position", { top: top, left: left, height: height });
+        topping_position.left -= diff;
+        $("body").trigger("collage-image");
     });
     $("#button-right").click(function() {
-        left += diff;
-        $("body").trigger("topping-position", { top: top, left: left, height: height });
+        topping_position.left += diff;
+        $("body").trigger("collage-image");
     });
     $("#button-small").click(function() {
-        height -= diff;
-        left += diff / 2;
-        top += diff / 2;
-        $("body").trigger("topping-position", { top: top, left: left, height: height });
+        topping_position.height -= diff;
+        topping_position.left += diff / 2;
+        topping_position.top += diff / 2;
+        $("body").trigger("collage-image");
     });
     $("#button-large").click(function() {
-        height += diff;
-        left -= diff / 2;
-        top -= diff / 2;
-        $("body").trigger("topping-position", { top: top, left: left, height: height });
+        topping_position.height += diff;
+        topping_position.left -= diff / 2;
+        topping_position.top -= diff / 2;
+        $("body").trigger("collage-image");
     });
-
 
 });
