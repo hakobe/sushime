@@ -1,0 +1,17 @@
+<% if @user.nil? %>
+  <a href="/auth"> twitter oauth 認証 </a>
+<% else %>
+<div>
+  ようこそ <%= @user.screen_name %> さん <a href="/auth/logout">ログアウト</a>
+</div>
+
+<div>
+  <img src="<%= @user.twitter_user[:profile_image_url] %>" width=256 height=256 />
+
+  <form action="/register" method="post"
+      enctype="multipart/form-data">
+    <input name="image_file" type="file" />
+    <input type="submit" value="up" />
+  </form>
+</div>
+<% end %>

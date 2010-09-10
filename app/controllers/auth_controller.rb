@@ -7,11 +7,21 @@ class AuthController < ApplicationController
     OAuth::Consumer.new(
       "om1i4JMQdgdwnbmokDBkNg",
       "5T71pRJGQAyvStMHqlFil14HXk6rHW1RnBqY0EGtc",
-      { :site => "http://twitter.com/" }
+      { :site => "http://twitter.com" }
     )
   end
 
   def index
+    redirect_to :action => :oauth
+  end
+
+  def logout
+    return unless @user
+
+    session[:sid] = nil
+    @user.session_id = nil
+
+    redirect_to :controller => :main, :action => :index
   end
 
   def oauth
@@ -47,13 +57,20 @@ class AuthController < ApplicationController
     )
     case response
     when Net::HTTPSuccess
-      user = User.new(
-        :screen_name  => access_token.params[:screen_name],
-        :token        => access_token.params[:oauth_token],
-        :token_secret => access_token.params[:oauth_token_secret]
-      )
+      user = User.find(:first, :conditions => {
+        :screen_name  => access_token.params[:screen_name]
+      })
+      if (user.nil?) 
+        user = User.create(
+          :screen_name  => access_token.params[:screen_name]
+        )
+      end
+      user.token = access_token.params[:oauth_token]
+      user.token_secret = access_token.params[:oauth_token_secret]
+
       user.new_session
       user.save
+
       session[:sid] = user.session_id
      # @user_info = JSON.parse(response.body)
 #      unless @user_info['screen_name']
@@ -68,6 +85,6 @@ class AuthController < ApplicationController
 #      return
     end
 
-    resirect_to :controller => :main, :action => :index
+    redirect_to :controller => :main, :action => :index
   end
 end

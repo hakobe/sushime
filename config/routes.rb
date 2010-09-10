@@ -6,7 +6,11 @@ Sushime::Application.routes.draw do
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
+  root :to => "main#index"
+  match 'register' => 'main#register'
+
   match 'auth' => 'auth#index'
+  match 'auth/logout' => 'auth#logout'
   match 'auth/oauth' => 'auth#oauth'
   match 'auth/oauth_callback' => 'auth#oauth_callback'
 
