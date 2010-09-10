@@ -39,8 +39,6 @@ class AuthController < ApplicationController
       :oauth_token => params[:oauth_token],
       :oauth_verifier => params[:oauth_verifier]
     )
-
-    pp access_token
  
     response = consumer.request(
       :get,
@@ -49,17 +47,27 @@ class AuthController < ApplicationController
     )
     case response
     when Net::HTTPSuccess
-      @user_info = JSON.parse(response.body)
-      unless @user_info['screen_name']
-        flash[:notice] = "Authentication failed"
-        redirect_to :action => :index
-        return
-      end
+      user = User.new(
+        :screen_name  => access_token.params[:screen_name],
+        :token        => access_token.params[:oauth_token],
+        :token_secret => access_token.params[:oauth_token_secret]
+      )
+      user.new_session
+      user.save
+      session[:sid] = user.session_id
+     # @user_info = JSON.parse(response.body)
+#      unless @user_info['screen_name']
+#        flash[:notice] = "Authentication failed"
+#        redirect_to :action => :index
+#        return
+#      end
     else
-      RAILS_DEFAULT_LOGGER.error "Failed to get user info via OAuth"
-      flash[:notice] = "Authentication failed"
-      redirect_to :action => :index
-      return
+#      RAILS_DEFAULT_LOGGER.error "Failed to get user info via OAuth"
+#      flash[:notice] = "Authentication failed"
+#      redirect_to :action => :index
+#      return
     end
+
+    resirect_to :controller => :main, :action => :index
   end
 end

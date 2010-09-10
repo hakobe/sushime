@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100910152436) do
+ActiveRecord::Schema.define(:version => 20100910153040) do
 
   create_table "users", :force => true do |t|
     t.datetime "created_at"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20100910152436) do
     t.string   "screen_name"
     t.string   "token"
     t.string   "token_secret"
+    t.string   "session_id"
   end
 
 end
