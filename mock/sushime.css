@@ -67,10 +67,28 @@ body {
     font-size: 120%;
 }
 
-#user-image img {
+#collage-container {
     width: 350px;
     height: 350px;
+    positoin: relative;
+    overflow: hidden;
+}
+
+#user-image {
+    width: 350px;
+    height: 350px;
+    position: absolute;
     background: gray;
+    z-index: 100;
+}
+
+#topping-image {
+    z-index: 110;
+    position: relative;
+    max-width: 130px;
+    max-height: 130px;
+    left: 110px;
+    top: 20px;
 }
 
 #submit form input{

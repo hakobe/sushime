@@ -28,10 +28,20 @@ google.setOnLoadCallback(function() {
             $("#search-result").empty();
 
             $.each(results, function(index, result) {
-                var a = $("<a>").attr({href: result.originalContextUrl, target: "_blank", className: "image-item", "data-original-url": result.url});
+                var a = $("<a>").attr({
+                    href: result.originalContextUrl,
+                    target: "_blank",
+                    className: "image-item",
+                    "data-original-url": result.url,
+                    "data-small-url": result.tbUrl,
+                });
                 var img = $("<img>").attr({src: result.tbUrl, title: result.titleNoFormatting});
                 a.append(img);
                 $("#search-result").append(a);
+                if ($("#topping-image").attr("data-loaded") === "no") {
+                    a.click();
+                    $("#topping-image").attr({ "data-loaded": "yes" });
+                }
             });
         });
 
@@ -47,7 +57,7 @@ google.setOnLoadCallback(function() {
 $(function() {
     // user icon
     $("body").bind("user-changed", function(event, username) {
-        $("#user-image img").attr({
+        $("#user-image").attr({
             src: "http://api.dan.co.jp/twicon/" + username + "/bigger"
         });
         $("#user-find form input[name='username']").val(username);
@@ -67,10 +77,13 @@ $(function() {
 
     // image select
     $("body").bind("topping-url-changed", function(event, url) {
+        $("#topping-image").attr({
+            src: url
+        });
     });
 
     $("#search-result a").live("click", function() {
-        $("body").trigger("topping-url-changed", $(this).attr("data-original-url"));
+        $("body").trigger("topping-url-changed", $(this).attr("data-small-url"));
         $("#search-result a.selected").removeClass("selected");
         $(this).addClass("selected");
         return false;
