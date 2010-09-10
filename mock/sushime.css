@@ -59,17 +59,18 @@ body {
     margin-bottom: 30px;
 }
 
-#user-find-form {
+#user-find {
     padding-bottom: 10px;
 }
 
-#user-find-form input {
+#user-find input {
     font-size: 120%;
 }
 
 #user-image img {
     width: 350px;
     height: 350px;
+    background: gray;
 }
 
 #submit form input{
